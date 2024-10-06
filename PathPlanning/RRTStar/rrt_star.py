@@ -56,7 +56,7 @@ class RRTStar(RRT):
         self.search_until_max_iter = search_until_max_iter
         self.node_list = []
 
-    def planning(self, animation=True, verbose=True):
+    def planning(self, animation=True):
         """
         rrt star path planning
 
@@ -65,10 +65,10 @@ class RRTStar(RRT):
 
         self.node_list = [self.start]
         for i in range(self.max_iter):
-            if verbose: print("Iter:", i, ", number of nodes:", len(self.node_list))
-            self.rnd = self.get_random_node()
-            nearest_ind = self.get_nearest_node_index(self.node_list, self.rnd)
-            new_node = self.steer(self.node_list[nearest_ind], self.rnd,
+            print("Iter:", i, ", number of nodes:", len(self.node_list))
+            rnd = self.get_random_node()
+            nearest_ind = self.get_nearest_node_index(self.node_list, rnd)
+            new_node = self.steer(self.node_list[nearest_ind], rnd,
                                   self.expand_dis)
             near_node = self.node_list[nearest_ind]
             new_node.cost = near_node.cost + \
@@ -87,7 +87,7 @@ class RRTStar(RRT):
                     self.node_list.append(new_node)
 
             if animation:
-                self.draw_graph(self.rnd)
+                self.draw_graph(rnd)
 
             if ((not self.search_until_max_iter)
                     and new_node):  # if reaches goal
@@ -269,8 +269,7 @@ def main():
         rand_area=[-2, 15],
         obstacle_list=obstacle_list,
         expand_dis=1,
-        robot_radius=0.8,
-        max_iter=1000)
+        robot_radius=0.8)
     path = rrt_star.planning(animation=show_animation)
 
     if path is None:

@@ -8,6 +8,7 @@ author: AtsushiSakai(@Atsushi_twi)
 
 import math
 import random
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -51,7 +52,6 @@ class RRT:
                  max_iter=500,
                  play_area=None,
                  robot_radius=0.0,
-                 random_seed=0,
                  ):
         """
         Setting Parameter
@@ -79,7 +79,6 @@ class RRT:
         self.obstacle_list = obstacle_list
         self.node_list = []
         self.robot_radius = robot_radius
-        random.seed(random_seed)
 
     def planning(self, animation=True):
         """
@@ -270,8 +269,7 @@ def main(gx=6.0, gy=10.0):
         rand_area=[-2, 15],
         obstacle_list=obstacleList,
         # play_area=[0, 10, 0, 14]
-        robot_radius=0.8,
-        goal_sample_rate=90
+        robot_radius=0.8
         )
     path = rrt.planning(animation=show_animation)
 
